@@ -1,0 +1,85 @@
+{
+  "version": 2,
+  "templates": [
+    {
+      "id": "electron-fullstack",
+      "type": "spec",
+      "name": "Electron + React + TypeScript",
+      "description": "使用 React 前端和 SQLite 后端的 Electron 全栈桌面应用",
+      "path": "specs/electron-fullstack",
+      "tags": ["electron", "react", "typescript", "sqlite"]
+    },
+    {
+      "id": "nextjs-fullstack",
+      "type": "spec",
+      "name": "Next.js + oRPC + PostgreSQL",
+      "description": "使用 oRPC API 层、Drizzle ORM 和 PostgreSQL 的 Next.js 全栈应用",
+      "path": "specs/nextjs-fullstack",
+      "tags": ["nextjs", "react", "typescript", "orpc", "drizzle", "postgresql"]
+    },
+    {
+      "id": "cf-workers-fullstack",
+      "type": "spec",
+      "name": "Cloudflare Workers + Hono + Turso",
+      "description": "使用 Hono 框架、Drizzle ORM 和 Turso 数据库的 Cloudflare Workers 全栈应用",
+      "path": "specs/cf-workers-fullstack",
+      "tags": ["cloudflare", "workers", "hono", "drizzle", "turso", "react", "typescript"]
+    },
+    {
+      "id": "java-fullstack",
+      "type": "spec",
+      "name": "Java + Spring Boot + MyBatis-Plus",
+      "description": "使用 Spring Boot、REST API、MyBatis-Plus 和 Maven 的 Java 全栈应用开发规范",
+      "path": "specs/java-fullstack",
+      "tags": ["java", "spring-boot", "rest-api", "mybatis-plus", "maven"]
+    },
+    {
+      "id": "trellis-meta",
+      "type": "skill",
+      "name": "Trellis Meta Skill",
+      "description": "用于理解和自定义 Trellis 工作流的元技能",
+      "path": "skills/trellis-meta",
+      "tags": ["trellis", "meta", "workflow", "customization"]
+    },
+    {
+      "id": "trellis-spec-bootstarp",
+      "type": "skill",
+      "name": "Trellis Spec Bootstarp",
+      "description": "用于引导生成项目专属 Trellis 编码规范的平台无关工作流",
+      "path": "skills/trellis-spec-bootstarp",
+      "tags": ["trellis", "spec", "bootstrap", "codebase-analysis"]
+    },
+    {
+      "id": "frontend-fullchain-optimization",
+      "type": "skill",
+      "name": "Frontend Full-Chain Optimization",
+      "description": "基于 Web Vitals 的前端性能诊断与优化工作流",
+      "path": "skills/frontend-fullchain-optimization",
+      "tags": ["frontend", "performance", "web-vitals", "lighthouse", "optimization"]
+    },
+    {
+      "id": "native",
+      "type": "workflow",
+      "name": "Native Trellis Workflow",
+      "description": "默认 Trellis 计划 / 执行 / 完成工作流，包含原生子代理和内联平台分支",
+      "path": "workflows/native/workflow.md",
+      "tags": ["workflow", "native", "default"]
+    },
+    {
+      "id": "tdd",
+      "type": "workflow",
+      "name": "TDD Workflow",
+      "description": "Trellis 工作流变体，在第二阶段按红 / 绿 / 重构节奏逐个推进行为切片",
+      "path": "workflows/tdd/workflow.md",
+      "tags": ["workflow", "tdd", "testing"]
+    },
+    {
+      "id": "channel-driven-subagent-dispatch",
+      "type": "workflow",
+      "name": "Channel-Driven Sub-Agent Dispatch",
+      "description": "Trellis 工作流变体，由主会话通过 trellis channel 协调实现和检查工作者",
+      "path": "workflows/channel-driven-subagent-dispatch/workflow.md",
+      "tags": ["workflow", "channel", "sub-agent", "dogfood"]
+    }
+  ]
+}
