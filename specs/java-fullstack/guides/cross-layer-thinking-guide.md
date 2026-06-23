@@ -9,11 +9,11 @@
 
 ## 数据流检查
 
-- 前端表单字段如何转换为请求 DTO。
-- Controller 如何校验和转换请求。
-- Service 如何执行业务规则和事务。
+- 前端表单字段如何转换为 RequestVO。
+- Controller 如何校验 RequestVO 并转换为 DTO。
+- Service 如何基于 DTO 执行业务规则和事务。
 - Mapper 如何查询或写入数据库。
-- 响应 VO 如何返回给前端展示。
+- DTO 如何转换为 ResponseVO 返回给前端展示。
 
 ## 契约检查
 

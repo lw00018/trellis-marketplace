@@ -2,16 +2,17 @@
 
 ## Bean Validation
 
-- Controller 请求 DTO 必须使用 Bean Validation 注解。
+- Controller 请求入参 RequestVO 必须使用 Bean Validation 注解。
 - 嵌套对象必须使用 `@Valid` 触发递归校验。
 - 分组校验只在创建和更新规则明显不同且有必要时使用。
 - 校验失败必须返回统一错误码和字段级错误信息。
 
-## DTO 设计
+## VO / DTO 设计
 
-- 创建请求和更新请求必须使用不同 DTO。
-- 请求 DTO 不得复用 Entity。
-- 响应 VO 不得复用请求 DTO。
+- 创建请求和更新请求必须使用不同 RequestVO。
+- 请求入参对象统一命名为 `{业务名}RequestVO`，不得复用 Entity 或 DTO。
+- 响应对象统一命名为 `{业务名}ResponseVO`，不得复用 RequestVO 或 DTO。
+- 业务层数据传输对象统一命名为 `{业务名}DTO`，不得直接作为 Controller 入参或响应对象。
 - 枚举字段优先使用枚举类型，不使用散落字符串。
 
 ## 业务校验

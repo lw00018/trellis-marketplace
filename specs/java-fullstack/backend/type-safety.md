@@ -26,10 +26,11 @@
 - 时间使用 `java.time`，禁止新业务使用 `Date` 和 `Calendar`。
 - 跨系统传输时间使用 ISO-8601 或 Unix 毫秒，并明确时区。
 
-## DTO 边界
+## VO / DTO 边界
 
-- Entity、DTO、VO 不得混用。
-- 对外 API 不暴露内部类型。
+- Entity、RequestVO、ResponseVO、DTO 不得混用。
+- RequestVO 只用于 Controller 入参，ResponseVO 只用于 Controller 响应，DTO 只用于业务层内部传输。
+- 对外 API 不暴露 Entity、DTO、MyBatis-Plus `Page` 或内部异常对象。
 - 类型转换必须集中处理，减少散落转换造成字段遗漏。
 
 ## 空值

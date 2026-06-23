@@ -18,6 +18,7 @@
 | 规则 | 文件 |
 | --- | --- |
 | **阿里 Java 强制规则作为 CI 阻断项** | [code-quality.md](./code-quality.md) |
+| **注释必须解释业务意图、设计原因和关键约束** | [code-quality.md](./code-quality.md) |
 | **Maven 版本由 dependencyManagement 统一管理** | [dependencies.md](./dependencies.md) |
 | **API 变更必须同步契约、前端、后端和测试** | [api-contract.md](./api-contract.md) |
 | **跨系统时间使用 ISO-8601 或 Unix 毫秒并明确时区** | [timestamp.md](./timestamp.md) |

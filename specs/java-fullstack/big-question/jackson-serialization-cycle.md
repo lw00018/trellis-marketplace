@@ -12,7 +12,7 @@ Entity 存在双向关联，Jackson 序列化时沿对象图无限展开。
 
 ## 解决方案
 
-- API 返回 DTO / VO，不直接返回 Entity。
+- API 返回 ResponseVO，不直接返回 Entity 或 DTO。
 - 响应对象只包含当前接口需要的字段。
 - 必要时使用 Jackson 注解控制序列化，但不要作为主要架构方案。
 

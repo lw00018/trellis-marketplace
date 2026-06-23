@@ -44,7 +44,10 @@ src/main/java/com/example/app/
 - 顶级业务代码目录必须按类型划分为 `controller`、`service`、`mapper`、`entity`、`dto`、`vo`，不得按业务模块创建顶级目录。
 - 各类型目录内必须按领域模块继续分包，例如 `user`、`order`、`payment`，不得使用含糊的 `business`、`module`、`manager`。
 - `controller` 只放接口适配代码，`service` 放业务编排，`mapper` 放持久化访问，`entity` 只映射数据库表。
-- `dto` 用于请求和内部传输，`vo` 用于响应展示，不得把 Entity 直接暴露给前端。
+- `vo` 用于接口入参和响应契约，`dto` 用于业务层内部传输，不得把 Entity 直接暴露给前端。
+- 请求入参对象统一命名为 `{业务名}RequestVO`，例如 `CreateUserRequestVO`、`UpdateUserRequestVO`。
+- 响应对象统一命名为 `{业务名}ResponseVO`，例如 `UserDetailResponseVO`、`UserListItemResponseVO`。
+- 业务层数据传输对象统一命名为 `{业务名}DTO`，例如 `UserDTO`、`OrderSettlementDTO`。
 - Entity（PO）必须继承 `com.yhd.common.pojo.po.BaseEntity`。`BaseEntity` 继承自 `BaseObject`（实现 `Serializable`），提供 `id`（UUID 自动赋值）、`createdBy`、`createdDate`（INSERT 自动填充）、`updatedBy`、`updatedDate`（INSERT_UPDATE 自动填充）公共字段，基于 MyBatis-Plus。
 - DTO 必须继承 `com.yhd.common.pojo.dto.BaseDTO`。`BaseDTO` 继承自 `BaseObject`（实现 `Serializable`）。
 - VO 必须继承 `com.yhd.common.pojo.vo.BaseVO`。`BaseVO` 继承自 `BaseObject`（实现 `Serializable`），提供 `isBlank(value, key)` 空值校验日志方法。
@@ -59,19 +62,22 @@ src/main/java/com/example/app/
 | Controller | `UserController` |
 | Service 接口 | `UserService` |
 | Service 实现 | `UserServiceImpl` |
-| Mapper | `UserMapper` |
-| Entity | `User` |
-| 请求 DTO | `CreateUserRequest`、`UpdateUserRequest` |
-| 响应 VO | `UserDetailVO`、`UserListItemVO` |
-| 转换器 | `UserConvert` |
+| 数据访问 Mapper | `UserMapper` |
+| 对象转换 Mapper | `UserConvertMapper` |
+| Entity（PO） | `User` |
+| 请求 VO | `CreateUserRequestVO`、`UpdateUserRequestVO` |
+| 响应 VO | `UserDetailResponseVO`、`UserListItemResponseVO` |
+| 业务 DTO | `UserDTO`、`OrderSettlementDTO` |
 
 ## 依赖方向
 
 ```text
-controller -> service -> mapper -> database
-controller -> dto / vo
-service -> entity / dto / domain object
+controller -> RequestVO / ResponseVO
+controller -> service
+service -> DTO / domain object
+service -> mapper -> database
 mapper -> entity
+convert mapper -> RequestVO / ResponseVO / DTO / Entity
 ```
 
 禁止反向依赖：Mapper 不得调用 Service，Entity 不得依赖 Controller、Service 或 Web 框架。

@@ -11,7 +11,7 @@
 
 ## 解决方案
 
-- API 返回 DTO / VO，不直接返回 Entity。
+- API 返回 ResponseVO，不直接返回 Entity 或 DTO。
 - 查询时明确需要的关联数据。
 - 对列表接口使用专门查询模型。
 - 避免开启 Open Session In View 掩盖边界问题。

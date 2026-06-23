@@ -19,7 +19,10 @@ mvn -B enforcer:enforce
 ## API 质量
 
 - [ ] Controller 不包含业务规则。
-- [ ] 请求 DTO 和响应 VO 分离。
+- [ ] Controller 入参使用 `{业务名}RequestVO`，响应使用 `{业务名}ResponseVO`。
+- [ ] Service 只接收和返回 `{业务名}DTO`，不依赖 RequestVO、ResponseVO 或 Web 请求对象。
+- [ ] Entity、RequestVO、ResponseVO、DTO 分离且未混用。
+- [ ] 对象转换 Mapper 使用 `@Mapper(componentModel = "spring")` 正确注册。
 - [ ] 参数校验完整。
 - [ ] 错误码稳定且可定位。
 - [ ] API 兼容性已评估。
@@ -49,6 +52,7 @@ mvn -B enforcer:enforce
 ## 测试质量
 
 - [ ] 核心业务规则有单元测试。
+- [ ] VO / DTO / Entity 转换 Mapper 有单元测试。
 - [ ] 数据库 SQL 有集成测试或可验证用例。
 - [ ] 权限、异常、边界路径有覆盖。
 - [ ] 测试不依赖执行顺序。

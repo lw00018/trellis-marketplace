@@ -93,6 +93,7 @@
 | --- | --- |
 | **Controller 只处理协议转换、参数校验和权限入口** | [api-module.md](./api-module.md) |
 | **业务规则必须放在 Service 层，不写在 Controller 或 Mapper 中** | [api-module.md](./api-module.md) |
+| **Controller 入参使用 RequestVO，响应使用 ResponseVO，Service 使用 DTO** | [api-module.md](./api-module.md) |
 | **MyBatis-Plus 优先使用 LambdaQueryWrapper / LambdaUpdateWrapper** | [database.md](./database.md) |
 | **更新和删除必须带明确条件，禁止无条件全表操作** | [database.md](./database.md) |
 | **事务边界放在 Service 公共方法上，避免自调用事务失效** | [transactions.md](./transactions.md) |
@@ -114,7 +115,9 @@
 | Service 接口和实现 | `src/main/java/{basePackage}/{domain}/service/` |
 | MyBatis-Plus Mapper | `src/main/java/{basePackage}/{domain}/mapper/` |
 | Entity | `src/main/java/{basePackage}/{domain}/entity/` |
-| DTO / VO | `src/main/java/{basePackage}/{domain}/dto/`、`vo/` |
+| RequestVO / ResponseVO | `src/main/java/{basePackage}/{domain}/vo/` |
+| DTO | `src/main/java/{basePackage}/{domain}/dto/` |
+| 对象转换 Mapper | `src/main/java/{basePackage}/{domain}/mapper/` 或 `convert/` |
 | 配置类 | `src/main/java/{basePackage}/config/` |
 | 全局异常处理 | `src/main/java/{basePackage}/common/exception/` |
 | XML Mapper | `src/main/resources/mapper/**/*.xml` |

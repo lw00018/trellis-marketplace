@@ -8,14 +8,17 @@
 | Service | 业务规则、事务边界、跨资源编排 | 依赖 Web 请求对象、拼接 SQL |
 | Mapper | 数据库访问、MyBatis-Plus 查询 | 写业务判断、调用远程接口 |
 | Entity | 数据库表映射 | 暴露给前端、承载复杂业务逻辑 |
-| DTO / VO | 请求和响应契约 | 混用请求响应对象 |
+| RequestVO / ResponseVO | Controller 入参和响应契约 | 复用 DTO、Entity 或混用请求响应对象 |
+| DTO | 业务层内部数据传输 | 直接作为 Controller 入参或响应对象 |
+| Convert Mapper | VO、DTO、Entity 之间的对象转换 | 写业务规则、访问数据库 |
 
 ## Controller 规则
 
 - 每个 Controller 面向一个资源或聚合根。
 - 路径使用名词复数，例如 `/api/v1/users`。
-- Controller 方法必须声明清晰的请求 DTO 和响应 VO。
-- 不得返回 MyBatis-Plus `Page`、Entity 或内部异常对象。
+- Controller 方法入参必须使用 `{业务名}RequestVO`。
+- Controller 方法响应必须使用 `{业务名}ResponseVO` 或统一分页响应中的 `{业务名}ResponseVO`。
+- 不得返回 MyBatis-Plus `Page`、Entity、DTO 或内部异常对象。
 
 ## Service 规则
 
@@ -26,20 +29,46 @@
 
 ## Mapper 规则
 
-- Mapper 只负责数据访问，禁止包含业务流程判断。
-- 简单 CRUD 优先使用 MyBatis-Plus BaseMapper。
-- 复杂 SQL 使用 XML，并配套单元或集成测试。
+- 数据访问 Mapper 只负责数据库访问，禁止包含业务流程判断。
+- 数据访问 Mapper 简单 CRUD 优先使用 MyBatis-Plus `BaseMapper`。
+- 数据访问 Mapper 复杂 SQL 使用 XML，并配套单元或集成测试。
 - XML 路径统一为 `classpath*:/mapper/**/*.xml`。
+- 对象转换 Mapper 只负责 RequestVO、ResponseVO、DTO、Entity 之间的字段映射，不得访问数据库或编排业务流程。
+- 使用 MapStruct 的对象转换 Mapper 必须使用 `@Mapper(componentModel = "spring")` 注册为 Spring Bean。
+- 对象转换 Mapper 命名为 `{业务名}ConvertMapper`，例如 `UserConvertMapper`。
 
-## DTO 转换
+```java
+@Mapper(componentModel = "spring")
+public interface UserConvertMapper {
 
-- 请求 DTO 到业务命令对象、Entity 到 VO 的转换必须集中处理。
-- 简单转换可以手写，复杂转换可以使用 MapStruct。
-- 禁止在 Controller 中散落大量字段复制逻辑。
+    UserDTO toDTO(CreateUserRequestVO requestVO);
+
+    UserResponseVO toResponseVO(UserDTO userDTO);
+
+    User toEntity(UserDTO userDTO);
+}
+```
+
+## VO / DTO 转换
+
+- RequestVO 到 DTO、DTO 到 Entity、Entity 到 DTO、DTO 到 ResponseVO 的转换必须集中处理。
+- 简单转换可以手写，复杂转换必须使用 MapStruct 或统一转换器，禁止在 Controller 中散落字段复制逻辑。
+- Controller 只负责接收 RequestVO、调用 Service、返回 ResponseVO。
+- Service 只接收和返回 DTO，不依赖 RequestVO、ResponseVO 或 Web 请求对象。
+- Mapper 转换字段存在名称差异、枚举转换、时间格式转换或金额单位转换时，必须显式声明映射规则并覆盖测试。
+
+## 转换测试
+
+- 每个对象转换 Mapper 必须建立单元测试，覆盖 RequestVO 到 DTO、DTO 到 ResponseVO、DTO 到 Entity 的核心路径。
+- 测试必须验证字段完整性、空值策略、枚举映射、金额单位、时间格式和集合字段。
+- 新增或重命名 VO / DTO 字段时必须同步更新转换测试。
+- 转换测试不得依赖数据库、网络或 Spring 全量上下文。
 
 ## 模块提交检查
 
-- 新 API 是否有请求 DTO、响应 VO、参数校验和错误码。
-- Service 是否承载业务规则和事务边界。
-- Mapper 是否只处理数据访问。
+- 新 API 是否有 RequestVO、ResponseVO、DTO、参数校验和错误码。
+- Controller、Service、数据访问 Mapper、对象转换 Mapper 的职责是否分离。
+- 对象转换 Mapper 是否使用 `@Mapper(componentModel = "spring")` 正确注册。
+- VO 与 DTO 之间的转换测试是否覆盖核心字段和边界值。
+- 重命名数据对象后，控制器、服务层、数据访问层和测试引用是否同步调整。
 - API 是否有测试覆盖正常、异常和权限路径。
