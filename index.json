@@ -80,6 +80,14 @@
       "description": "Trellis 工作流变体，由主会话通过 trellis channel 协调实现和检查工作者",
       "path": "workflows/channel-driven-subagent-dispatch/workflow.md",
       "tags": ["workflow", "channel", "sub-agent", "dogfood"]
+    },
+    {
+      "id": "yhd-tdd",
+      "type": "workflow",
+      "name": "yhd TDD Workflow",
+      "description": "新增prd 自动审核,Trellis 工作流变体，在第二阶段按红 / 绿 / 重构节奏逐个推进行为切片",
+      "path": "workflows/yhd-tdd/workflow.md",
+      "tags": ["workflow", "tdd", "testing"]
     }
   ]
 }
