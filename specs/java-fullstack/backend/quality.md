@@ -48,6 +48,8 @@ mvn -B enforcer:enforce
 - [ ] 日志不包含敏感信息。
 - [ ] 权限校验覆盖资源归属。
 - [ ] 外部输入全部校验。
+- [ ] ResponseVO 中手机号、身份证、银行卡、邮箱、地址、姓名等敏感字段已标注 `@Sensitive`。
+- [ ] `@Sensitive` 未标注在 Entity、DTO 或 RequestVO 上。
 
 ## 测试质量
 

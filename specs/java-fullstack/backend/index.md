@@ -98,6 +98,7 @@
 | **更新和删除必须带明确条件，禁止无条件全表操作** | [database.md](./database.md) |
 | **事务边界放在 Service 公共方法上，避免自调用事务失效** | [transactions.md](./transactions.md) |
 | **所有外部输入必须校验，不能信任前端传入的字段名、排序字段或 SQL 片段** | [security.md](./security.md) |
+| **ResponseVO 敏感字段必须使用 @Sensitive 脱敏，引入 com.yhd.common.sensitive 包** | [security.md](./security.md) |
 | **异常必须统一转换为错误码和可理解消息** | [error-handling.md](./error-handling.md) |
 | **日志必须参数化输出，禁止记录密码、Token、身份证、银行卡等敏感信息** | [logging.md](./logging.md) |
 | **配置项使用 @ConfigurationProperties，密钥不得提交到仓库** | [configuration.md](./configuration.md) |

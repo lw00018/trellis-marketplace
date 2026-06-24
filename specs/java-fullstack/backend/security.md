@@ -20,6 +20,100 @@
 - 日志、异常、审计和响应中不得输出密码、Token、身份证、银行卡、手机号完整值。
 - 敏感字段传输必须使用 HTTPS。
 
+## 响应脱敏
+
+- 脱敏注解统一引入 `com.yhd.common.sensitive` 包：
+  - `com.yhd.common.sensitive.Sensitive`
+  - `com.yhd.common.sensitive.SensitiveTypeEnum`
+- `@Sensitive` 只标注在 ResponseVO 的 `String` 字段上，禁止标注在 Entity、DTO、RequestVO 或方法参数上。
+- 优先使用语义明确的枚举类型，不使用 `CUSTOMER`；只有内置类型无法满足时才使用 `CUSTOMER` 并显式配置 `prefixNoMaskLen`、`suffixNoMaskLen`、`maskStr`。
+- 脱敏只在 Jackson 序列化阶段生效，不影响数据库存储和内部业务逻辑。
+
+### 强制脱敏字段
+
+| 字段 | 推荐类型 |
+| --- | --- |
+| 手机号 | `MOBILE_PHONE` |
+| 身份证号 | `ID_CARD` |
+| 银行卡号 | `BANK_CARD` |
+| 中文姓名 | `CHINESE_NAME` |
+| 邮箱 | `EMAIL` |
+| 密码 | `PASSWORD` |
+| 密钥、Token、Secret | `KEY` |
+| 详细地址 | `ADDRESS` |
+
+### 脱敏效果
+
+| `SensitiveTypeEnum` | 适用字段 | 脱敏效果示例 |
+| --- | --- | --- |
+| `CUSTOMER` | 自定义规则 | 按 `prefixNoMaskLen`、`suffixNoMaskLen`、`maskStr` 配置 |
+| `CHINESE_NAME` | 中文姓名 | `刘*华`、`徐*` |
+| `ID_CARD` | 身份证号 | `110110********1234` |
+| `FIXED_PHONE` | 座机号 | `****1234` |
+| `MOBILE_PHONE` | 手机号 | `176****1234` |
+| `ADDRESS` | 地址 | `北京********` |
+| `EMAIL` | 电子邮件 | `s*****o@xx.com` |
+| `BANK_CARD` | 银行卡 | `622202************1234` |
+| `PASSWORD` | 密码 | 永远 `******`，与长度无关 |
+| `KEY` | 密钥 | 除最后三位外全部 `***` |
+
+### 使用示例
+
+```java
+import com.yhd.common.sensitive.Sensitive;
+import com.yhd.common.sensitive.SensitiveTypeEnum;
+
+@Schema(description = "用户详情响应")
+public class UserDetailResponseVO extends BaseVO {
+
+    @Schema(description = "用户姓名")
+    @Sensitive(type = SensitiveTypeEnum.CHINESE_NAME)
+    private String name;
+
+    @Schema(description = "手机号")
+    @Sensitive(type = SensitiveTypeEnum.MOBILE_PHONE)
+    private String mobile;
+
+    @Schema(description = "身份证号")
+    @Sensitive(type = SensitiveTypeEnum.ID_CARD)
+    private String idCard;
+
+    @Schema(description = "邮箱")
+    @Sensitive(type = SensitiveTypeEnum.EMAIL)
+    private String email;
+
+    @Schema(description = "银行卡号")
+    @Sensitive(type = SensitiveTypeEnum.BANK_CARD)
+    private String bankCard;
+
+    @Schema(description = "详细地址")
+    @Sensitive(type = SensitiveTypeEnum.ADDRESS)
+    private String address;
+}
+```
+
+自定义脱敏：
+
+```java
+import com.yhd.common.sensitive.Sensitive;
+import com.yhd.common.sensitive.SensitiveTypeEnum;
+
+@Sensitive(
+    type = SensitiveTypeEnum.CUSTOMER,
+    prefixNoMaskLen = 4,
+    suffixNoMaskLen = 4,
+    maskStr = "*"
+)
+private String orderNo;
+```
+
+### 禁止事项
+
+- 禁止在日志中输出脱敏前的原始值。
+- 禁止为了调试临时移除 `@Sensitive` 注解并提交。
+- 禁止在 RequestVO 中使用 `@Sensitive`，入参不脱敏。
+- 禁止依赖 `@Sensitive` 作为唯一安全手段，数据库和日志仍需独立脱敏。
+
 ## 文件上传
 
 - 校验文件大小、扩展名、MIME 类型和实际内容。

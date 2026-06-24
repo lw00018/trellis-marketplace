@@ -19,10 +19,16 @@ type(scope): summary
 
 ## 分支命名
 
-- `feature/{ticket}-{summary}`
-- `fix/{ticket}-{summary}`
-- `docs/{summary}`
-- `refactor/{summary}`
+| 分支 | 用途 |
+| --- | --- |
+| `dev` | 开发分支 |
+| `master` | 主分支 |
+| `feature/{ticket}-{summary}` | 开发新功能分支 |
+| `release/{version}` | 预发布分支 |
+| `hotfix/{ticket}-{summary}` | 修补 Bug 分支 |
+
+- 分支名称统一使用小写英文，主分支固定为 `master`，不得使用 `Master`。
+- `feature`、`release`、`hotfix` 分支必须从对应基础分支创建，合并后及时删除。
 
 ## 合并前检查
 
