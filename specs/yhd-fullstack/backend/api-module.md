@@ -20,6 +20,40 @@
 - Controller 方法响应必须使用 `{业务名}ResponseVO` 或统一分页响应中的 `{业务名}ResponseVO`。
 - 不得返回 MyBatis-Plus `Page`、Entity、DTO 或内部异常对象。
 
+### Swagger 3 注解
+
+- Controller 类必须加 `@Tag(name, description)`，按资源或聚合根分组。
+- Controller 方法必须加 `@Operation(summary, description)`，描述接口语义。
+- Controller 方法参数必须加 `@Parameter(description, required)`，`@PathVariable`、`@RequestParam`、`@RequestBody` 均覆盖。
+- VO、DTO、Entity 字段必须加 `@Schema(description, example)`；枚举字段加 `allowableValues`，必填字段加 `requiredMode = RequiredMode.REQUIRED`。
+
+```java
+@Tag(name = "用户管理", description = "用户创建、查询、状态变更接口")
+@RestController
+@RequestMapping("/api/v1/users")
+public class UserController {
+
+    @Operation(summary = "创建用户", description = "根据请求参数创建用户并返回详情")
+    @PostMapping
+    public ResponseResult<UserDetailResponseVO> createUser(
+            @Parameter(description = "创建用户请求体", required = true)
+            @Valid @RequestBody CreateUserRequestVO requestVO) {
+    }
+}
+```
+
+```java
+@Schema(description = "创建用户请求")
+public class CreateUserRequestVO extends BaseVO {
+
+    @Schema(description = "用户名", example = "zhangsan", requiredMode = RequiredMode.REQUIRED)
+    private String name;
+
+    @Schema(description = "用户类型", example = "ADMIN", allowableValues = {"ADMIN", "USER"}, requiredMode = RequiredMode.REQUIRED)
+    private String userType;
+}
+```
+
 ## Service 规则
 
 - 事务边界放在 Service 公共方法上。

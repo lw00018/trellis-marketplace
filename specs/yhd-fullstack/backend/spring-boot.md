@@ -4,13 +4,13 @@
 
 所有新建模块必须遵守以下规则：
 
-| 项目 | 值 |
-|------|------|
-| 继承父 POM | `com.yhd.springcloud:yhd-spring-cloud-parent` |
-| 父 POM 版本 | `3.0.5.1`（所有子模块不需要指定依赖版本） |
-| Java 版本 | 8 |
-| 组织 GID | `com.yhd` |
-| 初始版本 | `1.0.0-SNAPSHOT` |
+| 项目       | 值                                             |
+| -------- | --------------------------------------------- |
+| 继承父 POM  | `com.yhd.springcloud:yhd-spring-cloud-parent` |
+| 父 POM 版本 | `3.0.6`（所有子模块不需要指定依赖版本）                       |
+| Java 版本  | 17                                            |
+| 组织 GID   | `com.yhd`                                     |
+| 初始版本     | `1.0.0-SNAPSHOT`                              |
 
 ## 启动类
 
@@ -61,34 +61,35 @@ management:
 
 ### 基础依赖（所有服务必须引入）
 
-| 用途 | groupId | artifactId | 说明 |
-| --- | --- | --- | --- |
-| Nacos 配置中心 | `com.alibaba.cloud` | `spring-cloud-starter-alibaba-nacos-config` | 配置管理 |
-| Nacos 服务发现 | `com.alibaba.cloud` | `spring-cloud-starter-alibaba-nacos-discovery` | 服务注册 |
-| Web 模块 | `org.springframework.boot` | `spring-boot-starter-web` | 排除 Tomcat |
-| Undertow 容器 | `org.springframework.boot` | `spring-boot-starter-undertow` | 替代 Tomcat，性能更好 |
-| API 文档 | `com.yhd` | `yhd-springdoc-starter` | Swagger 3 / Springdoc |
-| 数据校验 | `com.yhd` | `yhd-validator-starter` | Bean Validation |
-| XSS 防护 | `com.yhd` | `yhd-xss-starter` | 输入过滤 |
-| Lombok | `org.projectlombok` | `lombok` | `<optional>true</optional>` |
-| Hutool 工具库 | `cn.hutool` | `hutool-all` | 通用工具 |
-| 数据库连接 | `com.yhd` | `yhd-database-starter` | 已内置 MyBatis-Plus |
-| MySQL 驱动 | `mysql` | `mysql-connector-java` | 数据库驱动 |
+| 用途          | groupId                    | artifactId                                     | 说明                          |
+| ----------- | -------------------------- | ---------------------------------------------- | --------------------------- |
+| Nacos 配置中心  | `com.alibaba.cloud`        | `spring-cloud-starter-alibaba-nacos-config`    | 配置管理                        |
+| Nacos 服务发现  | `com.alibaba.cloud`        | `spring-cloud-starter-alibaba-nacos-discovery` | 服务注册                        |
+| Web 模块      | `org.springframework.boot` | `spring-boot-starter-web`                      | 排除 Tomcat                   |
+| Undertow 容器 | `org.springframework.boot` | `spring-boot-starter-undertow`                 | 替代 Tomcat，性能更好              |
+| API 文档      | `com.yhd`                  | `yhd-springdoc-starter`                        | Swagger 3 / Springdoc       |
+| 数据校验        | `com.yhd`                  | `yhd-validator-starter`                        | Bean Validation             |
+| XSS 防护      | `com.yhd`                  | `yhd-xss-starter`                              | 输入过滤                        |
+| Lombok      | `org.projectlombok`        | `lombok`                                       | `<optional>true</optional>` |
+| Hutool 工具库  | `cn.hutool`                | `hutool-all`                                   | 通用工具                        |
+| 链路追踪       | `com.yhd`                  | `yhd-skywalking-starter`                       | 日志记录及 trace_id             |
+| 数据库连接       | `com.yhd`                  | `yhd-database-starter`                         | 已内置 MyBatis-Plus            |
+| MySQL 驱动    | `mysql`                    | `mysql-connector-java`                         | 数据库驱动                       |
 
 ### 业务依赖（按需引入）
 
-| 用途 | artifactId | 说明 |
-| --- | --- | --- |
-| Redis 缓存 | `yhd-redis-starter` | 缓存和分布式会话 |
-| 动态数据源 | `yhd-dynamic-database` | 多数据源切换 |
-| Excel 操作 | `yhd-easyexcel-starter` | 表格导入导出 |
-| 定时任务 | `yhd-job-starter` | 分布式定时调度 |
-| 分布式锁和幂等性 | `yhd-lock-starter` | 幂等和防重 |
-| 文件上传 | `yhd-oss-starter` | 对象存储 |
-| 消息队列 | `yhd-rocketmq-starter` | RocketMQ |
-| 分布式事务 | `yhd-seata-starter` | Seata AT 模式 |
-| 序号生成 | `yhd-sequence-starter` | 业务编码生成 |
-| 分库分表 | `yhd-sharding-jdbc-starter` | ShardingSphere |
+| 用途       | artifactId                  | 说明             |
+| -------- | --------------------------- | -------------- |
+| Redis 缓存 | `yhd-redis-starter`         | 缓存和分布式会话       |
+| 动态数据源    | `yhd-dynamic-database`      | 多数据源切换         |
+| Excel 操作 | `yhd-easyexcel-starter`     | 表格导入导出         |
+| 定时任务     | `yhd-job-starter`           | 分布式定时调度        |
+| 分布式锁和幂等性 | `yhd-lock-starter`          | 幂等和防重          |
+| 文件上传     | `yhd-oss-starter`           | 对象存储           |
+| 消息队列     | `yhd-rocketmq-starter`      | RocketMQ       |
+| 分布式事务    | `yhd-seata-starter`         | Seata AT 模式    |
+| 序号生成     | `yhd-sequence-starter`      | 业务编码生成         |
+| 分库分表     | `yhd-sharding-jdbc-starter` | ShardingSphere |
 
 ### 依赖规则
 
@@ -101,3 +102,4 @@ management:
 - 线程池、连接池、超时时间、重试次数必须显式配置。
 - 外部调用必须设置连接超时、读取超时和总超时。
 - 默认禁止无限重试、无限队列和无限等待。
+

@@ -26,11 +26,11 @@
       "tags": ["cloudflare", "workers", "hono", "drizzle", "turso", "react", "typescript"]
     },
     {
-      "id": "java-fullstack",
+      "id": "yhd-fullstack",
       "type": "spec",
       "name": "Java + Spring Boot + MyBatis-Plus",
-      "description": "使用 Spring Boot、REST API、MyBatis-Plus 和 Maven 的 Java 全栈应用开发规范",
-      "path": "specs/java-fullstack",
+      "description": "使用 Spring Boot、REST API、MyBatis-Plus 和 vue  全栈应用开发规范",
+      "path": "specs/yhd-fullstack",
       "tags": ["java", "spring-boot", "rest-api", "mybatis-plus", "maven"]
     },
     {
@@ -64,14 +64,6 @@
       "description": "默认 Trellis 计划 / 执行 / 完成工作流，包含原生子代理和内联平台分支",
       "path": "workflows/native/workflow.md",
       "tags": ["workflow", "native", "default"]
-    },
-    {
-      "id": "tdd",
-      "type": "workflow",
-      "name": "TDD Workflow",
-      "description": "Trellis 工作流变体，在第二阶段按红 / 绿 / 重构节奏逐个推进行为切片",
-      "path": "workflows/tdd/workflow.md",
-      "tags": ["workflow", "tdd", "testing"]
     },
     {
       "id": "channel-driven-subagent-dispatch",

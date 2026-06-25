@@ -26,6 +26,8 @@ mvn -B enforcer:enforce
 - [ ] 参数校验完整。
 - [ ] 错误码稳定且可定位。
 - [ ] API 兼容性已评估。
+- [ ] Controller 类已加 `@Tag(name, description)`，方法已加 `@Operation(summary, description)`，参数已加 `@Parameter(description, required)`。
+- [ ] VO、DTO、Entity 字段已加 `@Schema(description, example)`；枚举字段已加 `allowableValues`，必填字段已加 `requiredMode = RequiredMode.REQUIRED`。
 
 ## 数据库质量
 
